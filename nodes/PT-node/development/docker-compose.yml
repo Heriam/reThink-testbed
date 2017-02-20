@@ -5,8 +5,8 @@ services:
     container_name: 'msg-node-nodejs'
     # For Easy Development of the msg-node load this volume
     volumes:
-        - /home/hao/reThink/testbeds/nodejs/testbeds/nodes/PT-node/dev-msg-node-nodejs/node_modules:/usr/src/app/node_modules
-        - /home/hao/reThink/testbeds/nodejs/testbeds/nodes/PT-node/dev-msg-node-nodejs/src:/usr/src/app/src
+        - ~/reThink/dev-msg-node-nodejs/node_modules:/usr/src/app/node_modules
+        - ~/reThink/dev-msg-node-nodejs/src:/usr/src/app/src
     ports:
         - "9090:9090"
     environment:
