@@ -14,20 +14,26 @@ This testbed is currently (2017/02) configured for the development based on Node
 
 ## Install Testbed
 0. Create a project folder **reThink/** under your **~** or **/home/[your_username]/** directory (otherwise you would need to modify the path to your own in the docker-compose configuration file):
+
     ```
     $ mkdir reThink
     ```
+    
 1. Git clone this repo and checkout to **dev-tb** branch:
+
     ```
     $ git clone -b dev-tb git@github.com:Heriam/reThink-testbed.git
     ```
+    
 2. Go to reTHINK H2020 Project GitHub page: https://github.com/reTHINK-project/, and you will see a list
    of project repositories. Find the “dev-hyperty-toolkit” and “dev-hyperty” repositories, and git clone them into the **PT-node** directory:
+   
    ```
    $ cd reThink-testbed/nodes/PT-node/
    $ git clone git@github.com:reTHINK-project/dev-hyperty-toolkit.git
    $ git clone git@github.com:reTHINK-project/dev-hyperty.git
    ```
+   
 3. The testbed is currently(2017/02) used and configured for the development based on NodeJS messaging node. So, git clone the NodeJS messaging node under the **reThink/** project folder:
     ```
     $ cd ~/reThink
