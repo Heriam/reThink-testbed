@@ -1,5 +1,13 @@
 version: '2'
 services:
+  'redis':
+    image: 'redis:3.2.6'
+    networks:
+      rethink:
+        ipv4_address: 172.18.0.5
+    ports:
+      - "6379:6379"
+
   'msg-node-nodejs':
     image: msg-node-nodejs:latest
     container_name: 'msg-node-nodejs'
@@ -10,10 +18,11 @@ services:
     ports:
         - "9090:9090"
     environment:
-        - url=hjiang-rethink.com  # url:domain of CSP where the Messaging Node would be deployed
+        - MNdomain=hjiang-rethink.com  # url:domain of CSP where the Messaging Node would be deployed
         - port=9090     # port:port of Messaging Node would be deployed
-        - domainRegistryUrl=http://172.18.0.4:4567/ # url:domain of CSP where the registry-domain would be deployed or domainRegistryUrl=http://172.18.0.4:4567/
-        - globalRegistryUrl=http://130.149.22.133:5002/ # url:domain of CSP where the Global Registry would be deployed
+        - domainRegistryUrl=http://172.18.0.4:4567 # url:domain of CSP where the registry-domain would be deployed or domainRegistryUrl=http://172.18.0.4:4567/
+        - globalRegistryUrl=http://130.149.22.133:5002 # url:domain of CSP where the Global Registry would be deployed
+        - redisURL=http://172.18.0.5 # redisUrl:address where redis server(Persistence) would be deployed localhost could be redisUrl=http://172.18.0.5:6379/
         - logLevel=INFO
         - logDir=/usr/src/app/logs
         - useSSL=1
@@ -24,6 +33,8 @@ services:
         ipv4_address: 172.18.0.2
     expose:
       - '9090'
+    links:
+      - 'redis'
 
   'domain-registry':
     image: rethink/registry-domain-server
