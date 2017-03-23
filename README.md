@@ -55,10 +55,10 @@ This testbed is currently (2017/02) configured for the development based on Node
     
     ```
     # reThink
-    172.18.0.2        msg-node.hjiang-rethink.com
-    172.18.0.4        registry.hjiang-rethink.com
-    172.18.0.8        catalogue.hjiang-rethink.com
-    172.18.0.32       hjiang-rethink.com
+    172.19.0.2        msg-node.hjiang-rethink.com
+    172.19.0.4        registry.hjiang-rethink.com
+    172.19.0.8        catalogue.hjiang-rethink.com
+    172.19.0.32       hjiang-rethink.com
     ```
 
 ## Run and stop the Testbed
