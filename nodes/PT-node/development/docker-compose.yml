@@ -37,7 +37,7 @@ services:
       - 'redis'
 
   'domain-registry':
-    image: rethink/registry-domain-server
+    image: 'rethink/registry-domain-server:develop'
     container_name: 'domain-registry'
     networks:
       rethink:
@@ -84,6 +84,14 @@ services:
         ipv4_address: 172.19.0.32
     expose:
       - '443'
+    depends_on:
+      - 'hyperty-database'
+
+  'hyperty-database':
+    image: 'rethink/dev-hyperty:develop'
+    container_name: 'hyperty-database'
+    volumes:
+      - ../dev-hyperty:/opt/reTHINK/dev-hyperty/
 
 networks:
   rethink:

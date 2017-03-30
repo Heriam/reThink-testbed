@@ -10,10 +10,11 @@
     "configuration": {
       "url": "wss://msg-node.localhost:9090/ws"
     },
-    "constraints": [],
+    "constraints": {"browser":true},
     "hypertyCapabilities": [],
     "protocolCapabilities": [],
     "policies": [],
     "dataObjects": [],
-    "accessControlPolicy": "somePolicy"
+    "accessControlPolicy": "somePolicy",
+    "interworking": false
   }

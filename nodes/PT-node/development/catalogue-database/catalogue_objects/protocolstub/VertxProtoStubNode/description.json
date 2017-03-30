@@ -6,11 +6,12 @@
   "type": "ProtoStubs",
   "objectName": "VertxProtoStubNode",
   "configuration": {
-    "url": "wss://msg-node.localhost:9090/ws"
+    "url": "wss://msg-node.hysmart.rethink.ptinovacao.pt/ws"
   },
-  "messageSchemas": "",
+  "messageSchemas": [],
   "signature": "",
   "accessControlPolicy": "somePolicy",
-  "constraints": "",
-  "dataObjects": []
+  "constraints": {"node": true},
+  "dataObjects": [],
+  "interworking": false
   }

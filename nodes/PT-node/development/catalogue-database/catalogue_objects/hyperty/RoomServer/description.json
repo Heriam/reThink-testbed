@@ -4,15 +4,12 @@
     "description": "Description of RoomServer",
     "language": "Javascript",
     "hypertyType": [],
-    "constraints": {
-      "node": false,
-      "browser": true
-    },
+    "constraints": {"browser":true},
     "objectName": "RoomServer",
     "configuration": {},
-    "messageSchemas": "",
+    "messageSchemas": [],
     "dataObjects": [
-      "https://catalogue.hybroker.rethink.ptinovacao.pt/.well-known/dataschema/Communication"
+      "https://catalogue.hysmart.rethink.ptinovacao.pt/.well-known/dataschema/Communication"
     ],
     "signature": "",
     "accessControlPolicy": "somePolicy"
