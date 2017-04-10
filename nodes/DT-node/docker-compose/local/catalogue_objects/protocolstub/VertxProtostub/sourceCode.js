@@ -108,8 +108,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @return {VertxProtoStub}
 	   */
 	  function VertxProtoStub(runtimeProtoStubURL, bus, config) {
-	    var _this2 = this;
-
 	    _classCallCheck(this, VertxProtoStub);
 
 	    if (!runtimeProtoStubURL) throw new Error('The runtimeProtoStubURL is a needed parameter');
@@ -134,8 +132,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    bus.addListener('*', function (msg) {
 	      _this._open(function () {
 	        if (_this._filter(msg)) {
-	          msg.body.via = _this2._runtimeProtoStubURL;
-	          console.log('[VertxProtoStub: ProtoStub -> MN]', msg);
 	          _this._sock.send(JSON.stringify(msg));
 	        }
 	      });
@@ -286,11 +282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_filter',
 	    value: function _filter(msg) {
-	      if (msg.body && msg.body.via === this._runtimeProtoStubURL) {
-	        return false;
-	      }
-
-	      delete msg.body.via;
+	      if (msg.body && msg.body.via === this._runtimeProtoStubURL) return false;
 	      return true;
 	    }
 	  }, {
@@ -299,7 +291,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!msg.body) msg.body = {};
 
 	      msg.body.via = this._runtimeProtoStubURL;
-	      console.log('[VertxProtoStub: MN -> ProtoStub]', msg);
 	      this._bus.postMessage(msg);
 	    }
 
@@ -330,15 +321,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        _this._sock.onmessage = function (e) {
 	          var msg = JSON.parse(e.data);
-	          console.log('[VertxProtoStub: MN -> SOCKET ON MESSAGE]', msg);
 	          if (msg.from === 'mn:/session') {
 	            if (_this._sessionCallback) {
 	              _this._sessionCallback(msg);
 	            }
 	          } else {
-	            if (_this._filter(msg)) {
-	              _this._deliver(msg);
-	            }
+	            _this._deliver(msg);
 	          }
 	        };
 

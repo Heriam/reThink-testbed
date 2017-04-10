@@ -1,12 +1,12 @@
 {
-  "cguid": "40001",
+  "cguid": "40002",
   "version": "1.0",
-  "objectName": "VertxProtoStub",
+  "objectName": "NodejsProtoStub",
   "description": "This is a protostub",
   "language": "Javascript ECMA6",
   "dataObjects": [],
   "configuration": {
-      "url": "wss://msg-node.matrix2.rethink.com/ws"
+      "url": "wss://msg-node.hjiang-rethink.com:9090"
   },
   "constraints": [],
   "messageSchemas": []

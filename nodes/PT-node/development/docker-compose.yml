@@ -1,27 +1,47 @@
 version: '2'
 services:
-  'msg-node-vertx':
-    image: 'rethink/msg-node-vertx:develop'
-    container_name: 'msg-node-vertx'
-    environment:
-      - MSG_NODE_CONFIG=env
-      - NODE_DOMAIN=localhost
-      - NODE_PORT=9090
-      - NODE_REGISTRY_URL=http://172.18.0.4:4567
-      - NODE_GLOBAL_REGISTRY_URL=http://130.149.22.133:5002
+  'redis':
+    image: 'redis:3.2.6'
     networks:
       rethink:
-        ipv4_address: 172.18.0.2
+        ipv4_address: 172.19.0.5
+    ports:
+      - "6379:6379"
+
+  'msg-node-nodejs':
+    image: msg-node-nodejs:latest
+    container_name: 'msg-node-nodejs'
+    # For Easy Development of the msg-node load this volume
+    volumes:
+        - ~/reThink/dev-msg-node-nodejs/node_modules:/usr/src/app/node_modules
+        - ~/reThink/dev-msg-node-nodejs/src:/usr/src/app/src
+    ports:
+        - "9090:9090"
+    environment:
+        - MNdomain=hjiang-rethink.com  # url:domain of CSP where the Messaging Node would be deployed
+        - port=9090     # port:port of Messaging Node would be deployed
+        - domainRegistryUrl=http://172.19.0.4:4567 # url:domain of CSP where the registry-domain would be deployed or domainRegistryUrl=http://172.19.0.4:4567/
+        - globalRegistryUrl=http://130.149.22.133:5002 # url:domain of CSP where the Global Registry would be deployed
+        - redisURL=http://172.19.0.5 # redisUrl:address where redis server(Persistence) would be deployed localhost could be redisUrl=http://172.19.0.5:6379/
+        - logLevel=INFO
+        - logDir=/usr/src/app/logs
+        - useSSL=1
+        - sslCertificate=/usr/src/app/src/ssl/myCert.crt
+        - sslPKey=/usr/src/app/src/ssl/myCert.key
+    networks:
+      rethink:
+        ipv4_address: 172.19.0.2
     expose:
-      - '443'
       - '9090'
+    links:
+      - 'redis'
 
   'domain-registry':
     image: 'rethink/registry-domain-server:develop'
     container_name: 'domain-registry'
     networks:
       rethink:
-        ipv4_address: 172.18.0.4
+        ipv4_address: 172.19.0.4
     environment:
       - STORAGE_TYPE=RAM
       - EXPIRES=3600
@@ -34,9 +54,9 @@ services:
     container_name: 'catalogue-broker'
     networks:
       rethink:
-        ipv4_address: 172.18.0.8
-    hostname: 'catalogue.localhost'
-    command: [-host, 'catalogue.localhost', -default, protocolstub/VertxProtoStub]
+        ipv4_address: 172.19.0.8
+    hostname: 'catalogue.hjiang-rethink.com'
+    command: [-host, 'catalogue.hjiang-rethink.com', -default, protocolstub/NodejsProtoStub]
     expose:
       - '443'
       - '5683'
@@ -45,34 +65,23 @@ services:
     build: "./catalogue-database"
     container_name: 'catalogue-database-ptinovacao'
     network_mode: "service:catalogue-broker"
-    command: [-host, catalogue.localhost]
+    command: [-host, catalogue.hjiang-rethink.com]
     depends_on:
       - 'catalogue-broker'
 
-#  'global-registry'
-#    build: 'rethink/global-registry'
-#    container_name: 'global-registry'
-#    environment:
-#      - KEY=VALUE
-#    networks:
-#      rethink:
-#        ipv4_address: 172.18.0.16
-#    expose:
-#      - '443'
-
   'hyperty-toolkit':
-    image: vitormtsilva/dev-hyperty-toolkit:develop
+    build: "../dev-hyperty-toolkit"
     container_name: 'hyperty-toolkit'
     environment:
-      - DEVELOPMENT=false
-      - RUNTIME_URL=hyperty-catalogue://catalogue.localhost/.well-known/runtime/Runtime
-      - DOMAIN=localhost
+      - DEVELOPMENT=true
+      - RUNTIME_URL=hyperty-catalogue://catalogue.hjiang-rethink.com/.well-known/runtime/Runtime
+      - DOMAIN=hjiang-rethink.com
       - HYPERTY_REPO=/tmp/dev-hyperty
     volumes:
       - ../dev-hyperty:/tmp/dev-hyperty
     networks:
       rethink:
-        ipv4_address: 172.18.0.32
+        ipv4_address: 172.19.0.32
     expose:
       - '443'
 
@@ -82,5 +91,5 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.18.0.0/16
-          gateway: 172.18.0.1
+        - subnet: 172.19.0.0/16
+          gateway: 172.19.0.1
