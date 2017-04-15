@@ -39,15 +39,16 @@ This testbed is currently (2017/02) configured for the development based on Node
     $ cd ~/reThink
     $ git clone -b dev-policies git@github.com:Heriam/dev-msg-node-nodejs.git
     ```
-    In order to build dev-msg-node-nodejs you must have docker running. Otherwise docker can be installed from [docker installation](https://docs.docker.com/). After having intsalled correctly docker, run the command:
-    ```
-    $ docker build -t msg-node-nodejs .
-    ```
-    Then run the following command to support local development environment:
+    Run the following command to support local development environment:
     ```
     $ npm run init-setup
     ```    
     After running successfully this command you will have 2 folders (node_modules and vendor), these folders are excluded from the commit process, and are only for development.
+    
+    In order to build dev-msg-node-nodejs you must have docker running. Otherwise docker can be installed from [docker installation](https://docs.docker.com/). After having intsalled correctly docker, run the command:
+    ```
+    $ docker build -t msg-node-nodejs .
+    ```
     
     **Note** that if you meet with some permission problems, try to run the command with **sudo** or as root user.
     
