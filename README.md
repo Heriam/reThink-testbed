@@ -19,10 +19,10 @@ This testbed is currently (2017/02) configured for the development based on Node
     $ mkdir reThink
     ```
     
-1. Git clone this repo and checkout to **dev-tb** branch:
+1. Git clone this repo:
 
     ```
-    $ git clone -b dev-tb git@github.com:Heriam/reThink-testbed.git
+    $ git clone git@github.com:Heriam/reThink-testbed.git
     ```
     
 2. Go to reTHINK H2020 Project GitHub page: https://github.com/reTHINK-project/, and you will see a list
@@ -30,14 +30,14 @@ This testbed is currently (2017/02) configured for the development based on Node
    
    ```
    $ cd reThink-testbed/nodes/PT-node/
-   $ git clone git@github.com:reTHINK-project/dev-hyperty-toolkit.git
-   $ git clone git@github.com:reTHINK-project/dev-hyperty.git
+   $ git clone -b develop git@github.com:reTHINK-project/dev-hyperty-toolkit.git
+   $ git clone -b develop git@github.com:reTHINK-project/dev-hyperty.git
    ```
    
 3. The testbed is currently(2017/02) used and configured for the development based on NodeJS messaging node. So, git clone the NodeJS messaging node under the **reThink/** project folder:
     ```
     $ cd ~/reThink
-    $ git clone -b dev-policies git@github.com:Heriam/dev-msg-node-nodejs.git
+    $ git clone git@github.com:Heriam/dev-msg-node-nodejs.git
     ```
     Run the following command to support local development environment:
     ```
